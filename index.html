@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ивелина Белякова - Персональный тренер</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --primary-light: #A78BFA;
+            --secondary: #C4B5FD;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        nav .logo:hover {
+            transform: scale(1.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            margin: 2rem auto;
+            object-fit: cover;
+            animation: zoomIn 0.8s ease, float 3s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+
+        /* About */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .service-card:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--primary-dark);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-card p {
+            color: #6B7280;
+        }
+
+        /* Certificates */
+        #certificates {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(196, 181, 253, 0.1) 100%);
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .certificate-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .certificate-placeholder {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .certificate-card:nth-child(1) { animation-delay: 0.1s; }
+        .certificate-card:nth-child(2) { animation-delay: 0.2s; }
+        .certificate-card:nth-child(3) { animation-delay: 0.3s; }
+        .certificate-card:nth-child(4) { animation-delay: 0.4s; }
+        .certificate-card:nth-child(5) { animation-delay: 0.5s; }
+        .certificate-card:nth-child(6) { animation-delay: 0.6s; }
+        .certificate-card:nth-child(8) { animation-delay: 0.7s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .certificate-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+        }
+
+        .certificate-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .certificate-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .certificate-card .cert-info {
+            padding: 1.5rem;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--white) 0%, rgba(139, 92, 246, 0.03) 100%);
+        }
+
+        .certificate-card .cert-info h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .certificate-card .cert-info p {
+            color: #6B7280;
+            font-size: 0.95rem;
+        }
+
+        /* Modal for certificate zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            animation: zoomIn 0.3s ease;
+            cursor: default;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .modal-close:hover {
+            color: #ccc;
+        }
+
+        /* Instagram Feed */
+        #instagram {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(196, 181, 253, 0.1) 100%);
+            padding: 6rem 2rem;
+        }
+
+        .instagram-embed {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Contact */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover i {
+            transform: scale(1.3) rotate(10deg);
+            color: var(--primary-dark);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.3) rotate(360deg);
+            color: var(--primary-dark);
+            filter: drop-shadow(0 0 10px var(--primary-light));
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* Navigation */
+            nav {
+                padding: 0.75rem 0;
+            }
+
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            nav .logo {
+                font-size: 1.3rem;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 1rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                gap: 0.5rem;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Hero */
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-img {
+                width: 150px;
+                height: 150px;
+            }
+
+            /* Sections */
+            section {
+                padding: 3rem 1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            /* About */
+            .about-content {
+                font-size: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            /* Services */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card {
+                padding: 1.5rem;
+            }
+
+            .service-card i {
+                font-size: 2.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.3rem;
+            }
+
+            /* Certificates */
+            .certificates-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .certificate-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .certificate-card img {
+                height: 300px;
+            }
+
+            .certificate-card .cert-info h4 {
+                font-size: 1rem;
+            }
+
+            /* Modal */
+            .modal-content {
+                max-width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal-close {
+                top: 10px;
+                right: 15px;
+                font-size: 35px;
+            }
+
+            /* Contact */
+            .contact-item {
+                font-size: 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-item span {
+                word-break: break-word;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .social-links a {
+                font-size: 1.8rem;
+            }
+
+            /* Instagram */
+            .instagram-embed {
+                padding: 0 1rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .certificate-card img {
+                height: 250px;
+            }
+
+            .certificate-card .cert-info h4 {
+                font-size: 0.9rem;
+            }
+
+            .modal-close {
+                font-size: 30px;
+                top: 5px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#home" class="logo" style="text-decoration: none;">Ивелина Белякова</a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#about">О себе</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#certificates">Сертификаты</a></li>
+                <li><a href="#instagram">Блог</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <img src="https://via.placeholder.com/200" alt="Ивелинка" class="hero-img">
+            <h1>Ивелина Белякова</h1>
+            <p>Персональный тренер | Фитнес | Йога </p>
+            <p>Помогу вам достичь ваших целей и обрести гармонию тела и духа</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>О себе</h2>
+            <div class="about-content">
+                <p>
+                    Привет! Я Ивелина Белякова - сертифицированный тренер с многолетним опытом работы в различных направлениях фитнеса.
+                    Моя миссия - помочь каждому человеку раскрыть свой потенциал, улучшить физическую форму и обрести уверенность в себе.
+                </p>
+                <p style="margin-top: 1rem;">
+                    Я специализируюсь на персональных тренировках, йоге, растяжке и функциональном тренинге.
+                    Индивидуальный подход к каждому клиенту - основа моей работы.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>Мои услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Персональные тренировки</h3>
+                    <p>Индивидуальные программы тренировок, разработанные специально для ваших целей и уровня подготовки. Работа над силой, выносливостью и рельефом тела.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-spa"></i>
+                    <h3>Йога</h3>
+                    <p>Практики йоги для всех уровней подготовки. Улучшение гибкости, баланса и внутренней гармонии. Хатха-йога, виньяса и медитативные практики.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-child"></i>
+                    <h3>Растяжка и гибкость</h3>
+                    <p>Специальные программы для развития гибкости и подвижности суставов. Профилактика травм и улучшение общего самочувствия.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Функциональный тренинг</h3>
+                    <p>Тренировки, направленные на улучшение функциональности тела в повседневной жизни. Развитие координации, баланса и силы.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Групповые занятия</h3>
+                    <p>Энергичные групповые тренировки в дружеской атмосфере. Мотивация, поддержка и достижение результатов вместе.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Онлайн-тренировки</h3>
+                    <p>Персональные онлайн-тренировки из любой точки мира. Гибкий график и индивидуальный подход без привязки к месту.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates">
+        <div class="container">
+            <h2>Сертификаты</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card" onclick="openModal('img/photo_3_2025-12-07_10-12-42.jpg')">
+                    <img src="img/photo_3_2025-12-07_10-12-42.jpg" alt="Инструктор групповых программ">
+                    <div class="cert-info">
+                        <h4>Инструктор групповых программ — базовый курс (HLS Go)</h4>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('img/photo_4_2025-12-07_10-12-42.jpg')">
+                    <img src="img/photo_4_2025-12-07_10-12-42.jpg" alt="FITNESS EVOLUTION 2025">
+                    <div class="cert-info">
+                        <h4>Участие в фитнес-конвенции FITNESS EVOLUTION 2025 — мастер-классы</h4>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('img/photo_5_2025-12-07_10-12-42.png')">
+                    <img src="img/photo_5_2025-12-07_10-12-42.png" alt="Тренировки в период беременности">
+                    <div class="cert-info">
+                        <h4>Обучение по направлению "Тренировки в период беременности"</h4>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('img/photo_6_2025-12-07_10-12-42.png')">
+                    <img src="img/photo_6_2025-12-07_10-12-42.png" alt="Functional Training & Mobility">
+                    <div class="cert-info">
+                        <h4>Специалист по Functional Training & Mobility</h4>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('img/photo_8_2025-12-07_10-12-42.jpg')">
+                    <img src="img/photo_8_2025-12-07_10-12-42.jpg" alt="Zumba Record">
+                    <div class="cert-info">
+                        <h4>Диплом за установление рекорда России на Zumba® фестивале</h4>
+                    </div>
+                </div>
+                <div class="certificate-card" onclick="openModal('img/photo_7_2025-12-07_10-12-42.png')">
+                    <img src="img/photo_7_2025-12-07_10-12-42.png" alt="Восстановление после родов">
+                    <div class="cert-info">
+                        <h4>Обучение по направлению "Специалист по восстановлению после родов"</h4>
+                    </div>
+                </div>
+                <!-- Empty placeholder for centering -->
+                <div class="certificate-placeholder"></div>
+                <div class="certificate-card" onclick="openModal('img/сертификат7.jpg')">
+                    <img src="img/сертификат7.jpg" alt="Диплом о профессиональной переподготовке">
+                    <div class="cert-info">
+                        <h4>Диплом о профессиональной переподготовке</h4>
+                    </div>
+                </div>
+                <!-- Empty placeholder for centering -->
+                <div class="certificate-placeholder"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for certificate zoom -->
+    <div id="certificateModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Instagram Feed Section -->
+    <!-- Instagram Feed Section -->
+    <section id="instagram">
+        <div class="container"> 
+            <h2>Мой блог в Instagram</h2>
+            <div class="instagram-embed">
+                <p style="margin-bottom: 2rem; color: #6B7280;">
+                    Следите за моими тренировками, советами и вдохновением в Instagram
+                </p>
+                
+                <!-- Background decoration -->
+                <div style="position: relative; max-width: 700px; margin: 0 auto; padding: 20px;">
+                    <!-- Decorative background circles -->
+                    <div style="position: absolute; top: -30px; left: -30px; width: 150px; height: 150px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 50%; opacity: 0.15; z-index: 0;"></div>
+                    <div style="position: absolute; bottom: -40px; right: -40px; width: 200px; height: 200px; background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-light) 100%); border-radius: 50%; opacity: 0.15; z-index: 0;"></div>
+                    
+                    <!-- Static Instagram Profile Card -->
+                    <a href="https://www.instagram.com/ivelinka.k/" target="_blank" style="text-decoration: none; position: relative; z-index: 10; display: block;">
+                        <div style="background:#FFF; border:0; border-radius:20px; box-shadow:0 10px 40px rgba(139, 92, 246, 0.25); margin: 0 auto; max-width:540px; padding:2.5rem; transition: all 0.4s ease; text-align: center; position: relative; overflow: hidden;">
+                            <!-- Gradient overlay on hover -->
+                            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, rgba(196, 181, 253, 0.05) 100%); opacity: 0; transition: opacity 0.3s; pointer-events: none;"></div>
+                            
+                            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 1.5rem; position: relative; z-index: 1;">
+                                <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);">
+                                    <i class="fab fa-instagram" style="font-size: 2.8rem; color: white;"></i>
+                                </div>
+                                <div>
+                                    <h3 style="color: var(--dark); margin: 0; font-size: 1.6rem; font-weight: 700;">@ivelinka.k</h3>
+                                    <p style="color: #6B7280; margin: 0.5rem 0 0 0; font-size: 1rem;">Персональный тренер</p>
+                                </div>
+                            </div>
+                            <p style="color: var(--dark); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem; position: relative; z-index: 1;">
+                                🏋️‍♀️ Фитнес | Йога | Растяжка<br>
+                                💪 Персональные и групповые тренировки<br>
+                                🌟 Помогу достичь ваших целей
+                            </p>
+                            <div style="text-align: center; padding: 1.2rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(196, 181, 253, 0.15) 100%); border-radius: 12px; position: relative; z-index: 1;">
+                                <p style="color: var(--primary); font-weight: 700; margin: 0; font-size: 1.05rem;">
+                                    Нажмите, чтобы посмотреть мой профиль в Instagram
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;"></div>
+                    <a href="https://www.instagram.com/ivelinka.k/" target="_blank" 
+                       style="display: inline-block; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+                              color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: bold; transition: transform 0.3s;"
+                       onmouseover="this.style.transform='scale(1.05)'" 
+                       onmouseout="this.style.transform='scale(1)'">
+                        <i class="fab fa-instagram"></i> Подписаться на Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (917) 158-20-11</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Самара, Россия</span>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary);">Социальные сети</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ivelinka.k/" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://vk.com/id125879550" target="_blank" title="VK">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2rem; background: var(--secondary); border-radius: 10px;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Запишитесь на первую тренировку!</h3>
+                    <p style="margin-bottom: 1rem;">Первая консультация бесплатно</p>
+                    <a href="https://www.instagram.com/ivelinka.k/" target="_blank" 
+                       style="display: inline-block; background: var(--primary); color: white; padding: 1rem 2rem; 
+                              border-radius: 50px; text-decoration: none; font-weight: bold; transition: all 0.3s;"
+                       onmouseover="this.style.background='var(--primary-dark)'; this.style.transform='scale(1.05)'" 
+                       onmouseout="this.style.background='var(--primary)'; this.style.transform='scale(1)'">
+                        Связаться со мной
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ивелина Белякова. Все права защищены.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Персональный тренер | Фитнес | Йога </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('nav-menu').classList.remove('active');
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 12px rgba(139, 92, 246, 0.2)';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Modal functions for certificate zoom
+        function openModal(imageSrc) {
+            const modal = document.getElementById('certificateModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('certificateModal');
+            modal.style.display = 'none';
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate certificate cards
+            const certCards = document.querySelectorAll('.certificate-card');
+            certCards.forEach(card => observer.observe(card));
+
+            // Animate service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach((card, index) => {
+                card.classList.add('fade-in');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // Animate about section
+            const aboutContent = document.querySelector('.about-content');
+            if (aboutContent) {
+                aboutContent.classList.add('fade-in');
+                observer.observe(aboutContent);
+            }
+
+            // Animate section headings
+            const sectionHeadings = document.querySelectorAll('section h2');
+            sectionHeadings.forEach(heading => {
+                heading.classList.add('fade-in');
+                observer.observe(heading);
+            });
+
+            // Animate contact items
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach((item, index) => {
+                item.classList.add('slide-in-left');
+                item.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(item);
+            });
+
+            // Animate social links
+            const socialLinks = document.querySelectorAll('.social-links a');
+            socialLinks.forEach((link, index) => {
+                link.classList.add('fade-in');
+                link.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(link);
+            });
+
+            // Smooth scroll effect (removed parallax to fix overlap issue)
+        });
+    </script>
+</body>
+</html>
