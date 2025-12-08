@@ -165,14 +165,44 @@
         }
 
         .hero-img {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
-            border: 5px solid var(--white);
+            border: 6px solid var(--white);
             margin: 2rem auto;
             object-fit: cover;
+            object-position: center 60%;
             animation: zoomIn 0.8s ease, float 3s ease-in-out infinite;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4), 
+                        0 0 0 15px rgba(139, 92, 246, 0.1),
+                        0 0 0 30px rgba(139, 92, 246, 0.05);
+            position: relative;
+            filter: brightness(1.05) contrast(1.1) saturate(1.2);
+        }
+        
+        .hero-img::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.5;
+            }
         }
 
         @keyframes float {
@@ -398,6 +428,136 @@
             font-size: 0.95rem;
         }
 
+        /* Testimonials */
+        #testimonials {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(196, 181, 253, 0.08) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(139, 92, 246, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 120px;
+            color: rgba(139, 92, 246, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+        .testimonial-card:nth-child(4) { animation-delay: 0.4s; }
+        .testimonial-card:nth-child(5) { animation-delay: 0.5s; }
+        .testimonial-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .testimonial-stars {
+            color: #FCD34D;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-text {
+            color: #4B5563;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-text.expanded {
+            display: block;
+            -webkit-line-clamp: unset;
+            line-clamp: unset;
+        }
+
+        .testimonial-toggle {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            display: block;
+        }
+
+        .testimonial-toggle:hover {
+            color: var(--primary-dark);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
         /* Modal for certificate zoom */
         .modal {
             display: none;
@@ -550,7 +710,8 @@
             }
 
             nav .logo {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+                white-space: nowrap;
             }
 
             nav ul {
@@ -581,36 +742,46 @@
 
             /* Hero */
             .hero {
-                padding: 6rem 1rem 3rem;
+                padding: 5rem 1rem 3rem;
+                min-height: auto;
             }
 
             .hero h1 {
                 font-size: 1.8rem;
+                line-height: 1.3;
             }
 
             .hero p {
-                font-size: 1rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
             }
 
             .hero-img {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
+                margin: 1.5rem auto;
             }
 
             /* Sections */
             section {
-                padding: 3rem 1rem;
+                padding: 2.5rem 1rem;
             }
 
             section h2 {
-                font-size: 1.8rem;
-                margin-bottom: 2rem;
+                font-size: 1.6rem;
+                margin-bottom: 1.5rem;
             }
 
             /* About */
             .about-content {
-                font-size: 1rem;
-                padding: 0 0.5rem;
+                font-size: 0.95rem;
+                padding: 0;
+                line-height: 1.7;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0 1rem;
             }
 
             /* Services */
@@ -686,6 +857,16 @@
                 padding: 0 1rem;
             }
 
+            /* Testimonials */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
             /* Footer */
             footer {
                 padding: 1.5rem 1rem;
@@ -695,20 +876,53 @@
 
         /* Extra small devices */
         @media (max-width: 480px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .hero {
+                padding: 4rem 0.75rem 2rem;
+            }
+
+            .hero-img {
+                width: 150px;
+                height: 150px;
+                margin: 1rem auto;
+            }
+
             .hero h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+                line-height: 1.3;
+                word-wrap: break-word;
             }
 
             .hero p {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+
+            section {
+                padding: 2rem 0.75rem;
             }
 
             section h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .service-card {
+                padding: 1.25rem;
             }
 
             .service-card h3 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+            }
+
+            .service-card p {
+                font-size: 0.9rem;
             }
 
             .certificate-card img {
@@ -717,6 +931,29 @@
 
             .certificate-card .cert-info h4 {
                 font-size: 0.9rem;
+            }
+
+            /* Testimonials */
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-card {
+                padding: 1.2rem;
+            }
+
+            .testimonial-text {
+                font-size: 0.95rem;
+            }
+
+            .author-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .author-info h4 {
+                font-size: 1rem;
             }
 
             .modal-close {
@@ -740,6 +977,7 @@
                 <li><a href="#about">О себе</a></li>
                 <li><a href="#services">Услуги</a></li>
                 <li><a href="#certificates">Сертификаты</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
                 <li><a href="#instagram">Блог</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
@@ -749,7 +987,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <img src="https://via.placeholder.com/200" alt="Ивелинка" class="hero-img">
+            <img src="img/основа.png" alt="Ивелина Белякова" class="hero-img">
             <h1>Ивелина Белякова</h1>
             <p>Персональный тренер | Фитнес | Zumba </p>
             <p>Помогу вам достичь ваших целей и обрести гармонию тела и духа</p>
@@ -786,31 +1024,31 @@
                        Занятие может проходить в тренажёрном зале фитнес-клуба или онлайн в любом удобном для вас месте.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-spa"></i>
+                    <i class="fas fa-music"></i>
                     <h3>Zumba</h3>
                     <p>Активная мегапозитивная танцевальная фитнес-программа, сочетающая элементы аэробики и латиноамериканских танцев. 
                         Zumba - это путешествие по разным танцевальным направлениям - хип-хоп, сальса, бачата, дэнсхолл, регетон, кизомба и тд.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-child"></i>
+                    <i class="fas fa-spa"></i>
                     <h3>Пилатес</h3>
                     <p>Оздоровительной направление фитнеса, система физических упражнений, направленная на улучшение гибкости, укрепление глубоких мышц и развитие координации. 
                         Наша главная цель — оздоровление суставов, укрепление мышц, снятие напряжений и болей в теле, коррекция веса, улучшение осанки.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-heartbeat"></i>
+                    <i class="fas fa-running"></i>
                     <h3>Функциональный тренинг</h3>
                     <p> Методика тренировок, основанная на выполнении упражнений, имитирующих повседневные движения. 
                         В отличие от традиционных силовых тренировок, где акцент делается на изолированное развитие определённых групп мышц, функциональный тренинг направлен на комплексное развитие всего тела.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-child"></i>
                     <h3>Тренровка на мобильность</h3>
                     <p>Направление фитнеса, которое фокусируется на развитии гибкости, мобильности суставов и общей функциональности тела. 
                         Такие тренировки помогают вернуть и активировать заложенные природой функции мышц, улучшить связь между мышцами и нервной системой.</p>
                 </div>
                 <div class="service-card">
-                    <i class="fas fa-laptop"></i>
+                    <i class="fas fa-heart"></i>
                     <h3>Тренировки во время беременности</h3>
                     <p>Персональные тренировки или работа в малых группах, по индивидуальной программе с учётом особенностей триместра, состояния здоровья и общей физической подготовки. 
                         Готовим тело в родам, помогаем держать мышцы в тонусе, помогаем организму адаптироваться к изменениям. 
@@ -876,6 +1114,81 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <h2>Отзывы</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Давно хожу к Ивелине на тренировки программы зумба в Физкультуру, летом ещё ходила на пилатес в парк Гагарина. Очень внимательный тренер, отзывчива, располагает к себе. С первого занятия сразу поняла, что хочу ходить только к ней! От её тренировок всегда заряжена энергией и позитивом"</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">А</div>
+                        <div class="author-info">
+                            <h4>Анна</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Хочу оставить свой отзыв Ивелине ❤️ Совсем недавно решила заняться собой серьёзно и впервые пришла в зал. Конечно, было немного страшно начать, ведь я совсем новичок и боялась сделать что-то неправильно. Но мой тренер сразу развеяла все мои страхи! Первое занятие прошло потрясающе: составили индивидуальную программу тренировок именно под меня, учли мои цели и пожелания. Особое внимание уделили технике выполнения упражнений — благодаря этому каждое движение теперь ощущаю правильно и точно знаю, какую группу мышц прорабатываю. Тренировки проходят легко и интересно, несмотря на сложность заданий. Ивелина меня мотивирует, вдохновляет и всегда рядом, чтобы поддержать или подсказать, как улучшить результат. Мне кажется, что прогресс уже заметен, хотя прошла всего пара недель занятий. Спасибо огромное за профессионализм, заботу и индивидуальный подход! Рекомендую всем, кто хочет привести себя в отличную физическую форму и чувствовать себя уверенно в зале! Люблю, люблю, целую ❤️❤️❤️"</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">М</div>
+                        <div class="author-info">
+                            <h4>Мария</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Была у Ивелины на тренировке по Зумбе и пилатесу. Отличный баланс после энергичных танцев потянуться и почувствовать тело. Зумба — это большая любовь, все треки в самое сердце, танцуешь, заряжаешься энергией тренера, музыкой и кайфуешь. Пилатес же напротив приносит в тело и голову гармонию, умиротворение, расслабляющий голос и четкие команды помогают выполнять упражнения качественно. Тренировки проходят на одном дыхании."</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">Д</div>
+                        <div class="author-info">
+                            <h4>Дарья</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Занимаюсь зумбой у Ивелины третий месяц. Это чистое удовольствие: тренировки яркие, динамичные, продуманно построены. Инструктор — симпатичная и стройная девушка, всегда в яркой одежде и с улыбкой на лице. Ивелина подаёт материал терпеливо и мотивирует не сдаваться. Уже после месяца занятий заметила улучшение координации, сбросила тяжесть в ногах и стала увереннее двигаться. Отличный выбор для тех, кто хочет совместить фитнес и танцы."</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">Е</div>
+                        <div class="author-info">
+                            <h4>Елена</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"После родов было сложно вернуться в форму, но Ивелина разработала индивидуальную программу восстановления специально для меня. Она учла все особенности послеродового периода, мои физические возможности и цели. Тренировки были построены грамотно и безопасно, с постепенным увеличением нагрузки. Ивелина всегда следила за моим самочувствием и корректировала программу при необходимости. Благодаря её профессионализму и поддержке я не только вернула прежнюю форму, но и стала чувствовать себя намного лучше и увереннее. Результат превзошёл все мои ожидания! Очень благодарна за внимательное отношение и эффективные тренировки."</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">О</div>
+                        <div class="author-info">
+                            <h4>Ольга</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Групповые занятия с Ивелиной — это настоящая мотивация и драйв! Каждая тренировка продумана до мелочей, всегда разнообразные программы и новые упражнения, поэтому никогда не бывает скучно. Ивелина умеет создать невероятную атмосферу в группе — все поддерживают друг друга, и это очень вдохновляет. Она внимательна к каждому участнику, корректирует технику выполнения упражнений и всегда находит слова поддержки. За всё время я не только улучшила физическую форму, но и обрела уверенность в себе!"</p>
+                    <button class="testimonial-toggle" onclick="toggleTestimonial(this)">Показать полностью ▼</button>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">С</div>
+                        <div class="author-info">
+                            <h4>Светлана</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Modal for certificate zoom -->
     <div id="certificateModal" class="modal" onclick="closeModal()">
         <span class="modal-close" onclick="closeModal()">&times;</span>
@@ -905,8 +1218,8 @@
                             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, rgba(196, 181, 253, 0.05) 100%); opacity: 0; transition: opacity 0.3s; pointer-events: none;"></div>
                             
                             <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 1.5rem; position: relative; z-index: 1;">
-                                <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);">
-                                    <i class="fab fa-instagram" style="font-size: 2.8rem; color: white;"></i>
+                                <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); padding: 3px; margin-bottom: 1rem; box-shadow: 0 8px 20px rgba(220, 39, 67, 0.3);">
+                                    <img src="img/Ивелина6.jpg" alt="@ivelinka.k" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid white;">
                                 </div>
                                 <div>
                                     <h3 style="color: var(--dark); margin: 0; font-size: 1.6rem; font-weight: 700;">@ivelinka.k</h3>
@@ -1042,6 +1355,20 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Toggle testimonial text
+        function toggleTestimonial(button) {
+            const card = button.closest('.testimonial-card');
+            const text = card.querySelector('.testimonial-text');
+            
+            if (text.classList.contains('expanded')) {
+                text.classList.remove('expanded');
+                button.textContent = 'Показать полностью ▼';
+            } else {
+                text.classList.add('expanded');
+                button.textContent = 'Свернуть ▲';
+            }
+        }
+
         // Close modal on Escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
@@ -1070,6 +1397,10 @@
             // Animate certificate cards
             const certCards = document.querySelectorAll('.certificate-card');
             certCards.forEach(card => observer.observe(card));
+
+            // Animate testimonial cards
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            testimonialCards.forEach(card => observer.observe(card));
 
             // Animate service cards
             const serviceCards = document.querySelectorAll('.service-card');
